@@ -1,0 +1,69 @@
+
+
+/* تب تقویم */
+.calendar-grid-3{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap:16px;
+}
+@media (max-width: 1100px){
+  .calendar-grid-3{ grid-template-columns: repeat(2, minmax(240px, 1fr)); }
+}
+@media (max-width: 760px){
+  .calendar-grid-3{ grid-template-columns: 1fr; }
+}
+
+.calendar-box{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.calendar-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+.calendar-title{
+  font-weight:700;
+  color: var(--text);
+  text-align:center;
+  flex:1;
+}
+
+.calendar-weekdays,
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7, 1fr);
+  gap:6px;
+}
+
+.calendar-weekdays span{
+  text-align:center;
+  font-size:.82rem;
+  color:var(--muted);
+  padding:4px 0;
+}
+
+.cal-day{
+  height:36px;
+  border-radius:10px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  color:var(--text);
+  font-size:.88rem;
+}
+.cal-day.muted{
+  opacity:.35;
+}
+.cal-day.today{
+  background: linear-gradient(135deg, rgba(58,123,213,.35), rgba(0,210,255,.25));
+  border-color: rgba(0,210,255,.6);
+  box-shadow: 0 0 0 1px rgba(0,210,255,.25) inset;
+}
+

@@ -1,0 +1,660 @@
+
+
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+  <meta name="theme-color" content="#121a36">
+  <meta name="description" content="«امروز» پلتفرم مدیریت روزانه شامل هزینه‌ها، تسک‌ها، اهداف، تقویم و دفترچه خاطرات.">
+  <meta property="og:title" content="امروز | مدیریت روزانه">
+  <meta property="og:description" content="مدیریت هزینه‌ها، تسک‌ها، اهداف و خاطرات در یکجا.">
+  <meta property="og:image" content="https://YOUR-DOMAIN/Assets/Images/mroooz-ico.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mroooz.ir/">
+  <link rel="canonical" href="https://mroooz.ir/">
+  <meta http-equiv="Content-Security-Policy"
+  content="
+    default-src 'self';
+    script-src 'self';
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;
+    font-src 'self';
+    connect-src 'self';
+    frame-ancestors 'none';
+    base-uri 'self';
+    form-action 'self';
+  ">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(), microphone=(), camera=()">
+  
+  <link rel="icon" href="./Assets/Images/mroooz-ico.png" type="image/x-icon">
+  <link rel="shortcut icon" href="./Assets/Images/mroooz-ico.png" type="image/x-icon">
+  <title>امروز</title>
+  <link rel="stylesheet" href="./CSS/style.css">
+  <link rel="stylesheet" href="./CSS/anim.css">
+  <link rel="stylesheet" href="./CSS/calendar.css">
+  <link rel="stylesheet" href="./CSS/goals.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">امروز<span>روز خودت رو مدیریت کن!</span></div>
+      <nav class="tabs">
+        <button class="tab active" data-tab="dashboard">داشبورد</button>
+        <button class="tab" data-tab="ai">هوش مصنوعی</button>
+        <button class="tab" data-tab="calendar">تقویم</button>
+        <button class="tab" data-tab="expenses">هزینه‌ها</button>
+        <button class="tab" data-tab="tasks">تسک</button>
+        <button class="tab" data-tab="goals">اهداف</button>
+        <button class="tab" data-tab="events">مناسبت‌ها</button>
+        <button class="tab" data-tab="diary">دفترچه خاطرات</button>
+        <button class="tab" data-tab="about">درباره ما</button>
+      </nav>
+    </aside>
+
+    <main class="content">
+
+      
+
+      <section id="dashboard" class="tab-panel active">
+        <div class="dashboard-grid">
+          <!-- Profile Box -->
+          <div class="card profile-card">
+            <div class="card-header">
+              <h3>مشخصات</h3>
+              <div class="actions">
+                <button id="editProfileBtn" class="btn ghost">ویرایش</button>
+                <button id="saveProfileBtn" class="btn primary">ذخیره</button>
+              </div>
+            </div>
+
+            <!-- Form -->
+            <form id="profileForm" class="form">
+              <div class="field">
+                <label>نام</label>
+                <input type="text" id="firstName" placeholder="مثلا علی">
+              </div>
+
+              <div class="field">
+                <label>نام خانوادگی</label>
+                <input type="text" id="lastName" placeholder="مثلا رضایی">
+              </div>
+
+              <div class="field">
+                <label>تاریخ تولد</label>
+                <input type="date" id="birthDate">
+              </div>
+
+              <div class="field">
+                <label>شماره تلفن</label>
+                <input type="tel" id="phone" placeholder="09xxxxxxxxx">
+              </div>
+
+
+
+              <div class="field">
+                <label>نام کاربری</label>
+                <input type="text" id="username" placeholder="username">
+              </div>
+            </form>
+
+            <!-- Saved view -->
+            <div id="profileView" class="profile-view hidden">
+              <div class="row"><span>نام:</span><b id="vFirstName">—</b></div>
+              <div class="row"><span>نام خانوادگی:</span><b id="vLastName">—</b></div>
+              <div class="row"><span>تاریخ تولد:</span><b id="vBirthDate">—</b></div>
+              <div class="row"><span>شماره تلفن:</span><b id="vPhone">—</b></div>
+              <div class="row"><span>ایمیل:</span><b id="vEmail">—</b></div>
+              <div class="row"><span>نام کاربری:</span><b id="vUsername">—</b></div>
+            </div>
+          </div>
+
+
+
+          <!-- <div class="card chat-card">
+            <div class="card-header">هوش مصنوعی</div>
+            <div id="chatMessages" class="chat-messages"></div>
+
+            <div class="chat-input">
+                <input id="chatInput" type="text" placeholder="پیام رو بنویس..." />
+                <button id="sendChatBtn" class="btn primary">ارسال</button>
+            </div>
+          </div> -->
+
+
+
+
+          <div class="card">
+            <div class="card-header">
+                <h3>آخرین هزینه‌ها</h3>
+            </div>
+            <div id="latestExpensesList" class="latest-expenses-list"></div>
+          </div>
+
+
+
+          <div class="dashboard-box chart-box">
+            <div class="box-title">نمودار هزینه‌های ماه جاری</div>
+            <canvas id="expenseChart" height="240"></canvas>
+          </div>
+
+
+
+          <div class="card" id="todayEventsCard">
+            <div class="card-header">
+                <h3>مناسبت‌های امروز</h3>
+                <span class="count" id="todayEventsCount">0</span>
+            </div>
+            <ul id="todayEventsList" class="simple-list">
+                <li class="empty">امروز مناسبت ثبت نشده است</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="calendar" class="tab-panel">
+        <div class="grid calendar-grid-3">
+            <!-- شمسی -->
+            <div class="card">
+            <div class="card-header">
+                <h3>تقویم شمسی</h3>
+            </div>
+              <h3>به زودی ...</h3>
+            </div>
+
+            <!-- میلادی -->
+            <div class="card">
+            <div class="card-header">
+                <h3>تقویم میلادی</h3>
+            </div>
+            <div class="calendar-box">
+                <div class="calendar-top">
+                <button id="gregPrev" class="btn">‹</button>
+                <div id="gregTitle" class="calendar-title">—</div>
+                <button id="gregNext" class="btn">›</button>
+                </div>
+                <div class="calendar-weekdays" id="gregWeekdays"></div>
+                <div id="gregGrid" class="calendar-grid"></div>
+            </div>
+            </div>
+
+            <!-- قمری -->
+            <div class="card">
+            <div class="card-header">
+                <h3>تقویم قمری</h3>
+            </div>
+            <div class="calendar-box">
+                <div class="calendar-top">
+                <button id="hijriPrev" class="btn">‹</button>
+                <div id="hijriTitle" class="calendar-title">—</div>
+                <button id="hijriNext" class="btn">›</button>
+                </div>
+                <div class="calendar-weekdays" id="hijriWeekdays"></div>
+                <div id="hijriGrid" class="calendar-grid"></div>
+            </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="expenses" class="tab-panel">
+        <div class="grid expenses-grid">
+            <!-- New Expense Box -->
+            <div class="card">
+            <div class="card-header">
+                <h3>هزینه جدید</h3>
+            </div>
+
+            <form id="expenseForm" class="form one-col">
+                <div class="field">
+                  <label>نام هزینه</label>
+                  <input type="text" id="expenseTitle" placeholder="مثلاً خرید مواد غذایی" required>
+                </div>
+
+                <div class="field">
+                  <label>مقدار هزینه (تومان)</label>
+                  <input type="number" id="expenseAmount" placeholder="مثلاً 450000" min="0" required>
+                </div>
+
+                <div class="field">
+                  <label>تاریخ</label>
+                  <input type="date" id="expenseDate" required>
+                </div>
+
+                <div class="field">
+                  <label>توضیحات بیشتر</label>
+                  <textarea id="expenseDesc" rows="4" placeholder="توضیحات اختیاری..."></textarea>
+                </div>
+
+                <button type="button" class="btn primary" id="saveExpenseBtn">ثبت هزینه</button>
+            </form>
+            </div>
+
+            <!-- Expense List Box -->
+            <div class="card">
+            <div class="card-header">
+                <h3>لیست هزینه‌ها</h3>
+            </div>
+            <div id="expenseList" class="expense-list"></div>
+            </div>
+        </div>
+
+        <!-- Expense Detail Box -->
+        <div class="card expense-detail-card">
+            <div class="card-header">
+              <h3>جزئیات هزینه</h3>
+            </div>
+            <div id="expenseDetailsContent" class="expense-detail empty">یک هزینه از لیست انتخاب کنید.</div>
+        </div>
+        <div id="expenseDeleteConfirm" class="confirm-box hidden">
+            <div class="confirm-content">
+                <h4>حذف هزینه</h4>
+                <p>مطمئنی میخوای این هزینه حذف بشه؟</p>
+                <div class="confirm-actions">
+                <button class="btn ghost" id="cancelExpenseDelete">انصراف</button>
+                <button class="btn primary" id="confirmExpenseDelete">حذف</button>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="tasks" class="tab-panel">
+        <h2>تسک‌ها</h2>
+
+        <div class="card-grid-2">
+            <!-- ثبت تسک -->
+            <div class="card">
+                <h3>تسک جدید</h3>
+                <div class="form-row">
+                    <label>نام تسک</label>
+                    <input type="text" id="taskTitle" placeholder="مثال: مطالعه ریاضی">
+                </div>
+                <div class="form-row">
+                    <label>تاریخ ثبت</label>
+                    <input type="date" id="taskCreated">
+                </div>
+                <div class="form-row">
+                    <label>تاریخ انجام</label>
+                    <input type="date" id="taskDue">
+                </div>
+                <div class="form-row">
+                    <label>توضیحات</label>
+                    <textarea id="taskDesc" rows="4"></textarea>
+                </div>
+                <button type="button" class="btn primary" id="saveTaskBtn">ثبت</button>
+            </div>
+
+            <!-- لیست -->
+            <div class="card">
+                <h3>لیست تسک‌ها</h3>
+                <div id="taskList" class="list-box"></div>
+                </div>
+            </div>
+
+            <!-- جزئیات -->
+            <div class="card" id="taskDetails">
+                <h3>جزئیات تسک</h3>
+                <div class="details-content" id="taskDetailsContent">
+                انتخابی انجام نشده است.
+                </div>
+            </div>
+
+            <!-- فریم تایید حذف -->
+            <div id="deleteConfirm" class="confirm-box hidden">
+                <div class="confirm-content">
+                <h4>حذف تسک</h4>
+                <p>مطمئنی میخوای این تسک حذف بشه؟</p>
+                <div class="confirm-actions">
+                    <button class="btn ghost" id="cancelDelete">انصراف</button>
+                    <button class="btn primary" id="confirmDelete">حذف</button>
+                </div>
+                </div>
+            </div>
+      </section>
+
+      <section id="ai" class="tab-panel">
+        <div class="card chat-card">
+            <div class="card-header">
+                <h3>هوش مصنوعی</h3>
+                <button class="btn ghost" id="clearMemoryBtn">پاک کردن گفتوگو</button>
+            </div>
+
+            <div class="chat-messages" id="chatMessages"></div>
+
+            <div class="chat-input">
+                <input type="text" id="chatInput" placeholder="" />
+                <button class="btn primary" id="sendBtn">ارسال</button>
+            </div>
+        </div>
+        <div id="clearChatConfirm" class="confirm-box hidden">
+            <div class="confirm-content">
+                <h4>حذف گفتگو</h4>
+                <p>مطمئنی می‌خوای کل گفتگو پاک بشه؟</p>
+                <div class="confirm-actions">
+                    <button class="btn ghost" id="cancelClearChat">انصراف</button>
+                    <button class="btn primary" id="confirmClearChat">حذف</button>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="events" class="tab-panel" role="tabpanel" aria-labelledby="events-tab">
+        <h2 class="tab-title">مدیریت مناسبت‌ها</h2>
+
+        <div class="events-grid">
+            <!-- ثبت مناسبت -->
+            <div class="card form-card">
+                <h3>ثبت مناسبت جدید</h3>
+                <form id="eventsForm">
+                    <div class="form-group">
+                        <label for="eventTitle">عنوان مناسبت</label>
+                        <input type="text" id="eventTitle" placeholder="مثلاً روز معلم" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDate">تاریخ مناسبت</label>
+                        <input type="date" id="eventDate" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventType">نوع مناسبت</label>
+                        <input type="text" id="eventType" placeholder="ملی، مذهبی، شخصی..." />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="eventDescription">توضیحات بیشتر</label>
+                        <textarea id="eventDescription" rows="4" placeholder="توضیحات اختیاری..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn secondary" id="cancelEventBtn">انصراف</button>
+                        <button type="button" class="btn primary" id="saveEventBtn">ثبت مناسبت</button>
+                    </div>
+            </form>
+            </div>
+
+
+            <!-- لیست مناسبت‌ها -->
+            <div class="card list-card">
+                <div class="card-header">
+                    <h3>لیست مناسبت‌ها</h3>
+                </div>
+                <ul id="eventsList" class="simple-list empty">
+                    <li>مناسبتی ثبت نشده است</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- جزئیات -->
+            <div class="events-details-grid">
+                <div class="card detail-card" id="eventMainDetails">
+                    <h3>جزئیات مناسبت</h3>
+                    <div class="detail-body empty">
+                        از لیست مناسبت‌ها یک مورد را انتخاب کنید.
+                    </div>
+                </div>
+
+                <div class="card detail-card" id="eventExtraDetails">
+                    <h3>توضیحات بیشتر</h3>
+                    <div class="detail-body empty">
+                        توضیحات تکمیلی پس از انتخاب نمایش داده می‌شود.
+                    </div>
+                </div>
+            </div>
+
+            <div id="eventDeleteConfirm" class="confirm-box hidden">
+            <div class="confirm-content">
+                <h4>حذف مناسبت</h4>
+                <p>مطمئنی می‌خوای این مناسبت حذف بشه؟</p>
+                <div class="confirm-actions">
+                <button class="btn ghost" id="cancelEventDelete">انصراف</button>
+                <button class="btn primary" id="confirmEventDelete">حذف</button>
+            </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="diary" class="tab-panel">
+        <h2 id="LABEL">دفترچه خاطرات</h2>
+
+        <div class="card-grid-2">
+            <!-- متن جدید -->
+            <div class="card">
+            <h3 id="BoxOLabel">متن جدید</h3>
+            <div class="form-row">
+                <label id="TextNameLabel">نام متن</label>
+                <input type="text" id="diaryTitle" placeholder="مثال: روز خوب">
+            </div>
+            <div class="form-row">
+                <label>تاریخ</label>
+                <input type="date" id="diaryDate">
+            </div>
+            <div class="form-row">
+                <label id="TextLabel">متن</label>
+                <textarea id="diaryText" rows="6"></textarea>
+            </div>
+                <button class="btn" id="saveDiaryBtn">ذخیره</button>
+            </div>
+
+            <!-- لیست متن‌ها -->
+            <div class="card">
+                <h3>لیست متن‌ها</h3>
+                <div id="diaryList" class="list-box"></div>
+            </div>
+        </div>
+
+        <div class="card" id="diaryDetails">
+            <h3>جزئیات</h3>
+            <div class="details-content" id="diaryDetailsContent">
+            انتخابی انجام نشده است.
+            </div>
+        </div>
+
+        <div id="diaryDeleteConfirm" class="confirm-box hidden">
+            <div class="confirm-content">
+                <h4>حذف یادداشت</h4>
+                <p>مطمئنی میخوای این یادداشت حذف بشه؟</p>
+                <div class="confirm-actions">
+                <button class="btn ghost" id="cancelDiaryDelete">انصراف</button>
+                <button class="btn primary" id="confirmDiaryDelete">حذف</button>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="goals" class="tab-panel">
+        <div class="goals-page">
+            <div class="goals-top">
+            <!-- Input Box -->
+            <div class="goal-input-box card">
+                <h3>ایجاد هدف جدید</h3>
+
+                <label>عنوان هدف</label>
+                <input id="goalTitle" type="text" placeholder="مثلاً یادگیری فرانت‌اند">
+
+                <label>مراحل هدف</label>
+                <div class="stage-add">
+                <input id="stageInput" type="text" placeholder="مثلاً دیدن ۱۰ جلسه">
+                <button id="addStageBtn" class="btn primary">افزودن مرحله</button>
+                </div>
+
+                <ul id="stagesList" class="stages-list"></ul>
+
+                <button id="saveGoalBtn" class="btn primary">ذخیره هدف</button>
+            </div>
+
+            <!-- Goals List -->
+            <div class="goals-list-box card">
+                <h3>لیست اهداف</h3>
+                <ul id="goalsList" class="goals-list"></ul>
+            </div>
+            </div>
+
+            <!-- Goal Display -->
+            <div class="goal-display card">
+            <h3 id="GoalsBoxLabel">نمایش مراحل هدف</h3>
+            <div id="goalFlow" class="goal-flow"></div>
+
+            <!-- Summary -->
+            <div class="goal-progress">
+                <div id="goalProgressText">پیشرفت: —</div>
+                <div class="progress-bar">
+                    <div id="goalProgressFill"></div>
+                </div>
+            </div>
+
+            <div id="goalSummary" class="goal-summary">
+                <p>عنوان: —</p>
+                <p>تعداد مراحل: —</p>
+                <p>تاریخ ایجاد: —</p>
+            </div>
+            </div>
+        </div>
+
+        <!-- Confirm Delete (هم‌سبک سایت) -->
+        <div id="goalDeleteConfirm" class="confirm-box hidden">
+            <div class="confirm-content">
+                <h4>حذف هدف</h4>
+                <p>مطمئنی می‌خوای این هدف حذف بشه؟</p>
+                <div class="confirm-actions">
+                    <button class="btn ghost" id="cancelGoalDelete">انصراف</button>
+                    <button class="btn primary" id="confirmGoalDelete">حذف</button>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <section id="about" class="tab-panel">
+        <div class="about-hero card">
+            <div class="about-hero-content">
+                <div class="about-hero-img">
+                    <div class="about-hero-media">
+                        <img id="company-ico" src="./Assets/Images/company-Ico.jpg" alt="لوگوی کمپانی">
+                    </div>
+                    <div class="about-hero-media">
+                        <img id="mroooz-ico" src="./Assets/Images/mroooz-ico.png" alt="لوگوی امروز">
+                    </div>
+                    <div class="about-hero-media">
+                        <img id="about-ico" src="./Assets/Images/about-ico.png" alt="لوگوی درباره ما">
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>درباره امروز</h2>
+                    <p>
+                        «امروز» یک پلتفرم ساده و هوشمند برای مدیریت روزانه شماست؛
+                        از هزینه‌ها تا تسک‌ها و خاطرات، همه‌چیز در یک جا.
+
+                        شما با استفاده از پلتفرم ما میتوانید در لحظه برنامه زندگی
+                        خودتون را آپدیت کنید.
+                        هزینه هزینه‌ها، تسک‌ها، خاطرات و ... را در «امروز» ثبت کنید
+                        تا به راحتی نظم زندکی خود را رعایت و برقرار کنید.
+
+                        سازنده این سایت امروز «شرکت ام تی ای» است تمام حقوق این
+                        سایت مطعلق به «امروز» و «شرکت ام تی ای» است.
+                    </p>
+                </div>
+                <div class="about-badges">
+                    <span>ساده</span>
+                    <span>سریع</span>
+                    <span>کمترین اینترنت</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid about-grid">
+            <div class="card about-card">
+                <h3>هدف ما</h3>
+                <p>
+                    کمک به شما برای نظم دادن به زندگی روزمره با رابط کاربری زیبا،
+                    سریع و قابل فهم. با کمترین مصرف اینترنت ما به شما برای زندگی 
+                    و نظم کمک میکنیم
+                </p>
+            </div>
+
+            <div class="card about-card">
+                <h3>امکانات کلیدی</h3>
+                <ul id="ek">
+                    <li class="ek-txt">مدیریت هزینه‌ها و نمودارها</li>
+                    <li class="ek-txt">مدیریت تسک‌ها و پیگیری زمان</li>
+                    <li class="ek-txt">ثبت مناسبت‌ها و یادآوری‌ها</li>
+                    <li class="ek-txt">دفترچه خاطرات شخصی</li>
+                </ul>
+            </div>
+
+            <div class="card about-card">
+                <h3>ارتباط با ما</h3>
+                <div class="contact-list">
+                    <div id="ebm"><span>ایمیل:</span><b class="email">toutounchimani@gmail.com</b></div>
+                    <div id="ebm"><span>تلگرام:</span><b class="tel-id">MTA2931@</b></div>
+                    <div id="ebm"><span>تماس:</span><b class="phone-num">0552 577 915 98+</b></div>
+                    <div id="ebm"><span>حمایت:</span><a href="https://reymit.com/mroooz" target="_blank" rel="noopener noreferrer" class="donate">reymit.com/mroooz</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- باکس راهنما -->
+        <div class="rahnama">
+            <div class="card">
+                <h3 class="tb-box">راهنما</h3>
+                <p class="muted">راهنمای سریع برای استفاده بهتر از امکانات سایت.</p>
+
+                <ol class="help-list">
+                <li>از منوی سمت چپ بین بخش‌ها جابه‌جا شوید.</li>
+                <li>در «تسک‌ها» کارهای روزانه را ثبت و تیک بزنید.</li>
+                <li>در «هزینه‌ها» خرج‌ها را ثبت کنید.</li>
+                <li>برای سوالات روزمره از هوش مصنوعی استفاده کنید.</li>
+                </ol>
+            </div>
+
+        <!-- باکس سوالات متعدد -->
+        <div class="faq">
+            <h3 class="tb-box">سوالات متداول</h3>
+            <p class="muted">پاسخ سوال‌های رایج کاربران</p>
+
+            <details class="faq-item">
+                <summary>اطلاعات من کجا ذخیره می‌شود؟</summary>
+                <p>در حال حاضر اطلاعات داخل مرورگر ذخیره می‌شود.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>یعنی چه کمترین مصرف اینترنت؟</summary>
+                <p>بدلیل نداشتن دیتابیس و ذخیره سازی اطلاعات در مرورگر، شما فقط برای ورود به سایت به اینترنت نیازمند هستید.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>می‌توانم از چند دستگاه استفاده کنم؟</summary>
+                <p>خیر. این سایت را فقط در یک دستگاه میشه استفاده کرد. چون همه اطلاعات درون مرورگر ذخیره میشه.</p>
+            </details>
+
+            <details class="faq-item">
+                <summary>امروز از چه هوش مصنوعی استفاده میکند؟</summary>
+                <p>از هوش مصوعی "گروک". از آخرین نسخه Grok-4 در قسمت هوش مصنوعی استفاده میشود. این هوش مصنوعی توسط xAi ساخته شده است.</p>
+            </details>
+        </div>
+        </div>
+      </section>
+
+      <div class="copyright">
+        © Copyright | All rights reserved Mroooz
+      </div>
+
+
+    
+    </main>
+  </div>
+
+  <script src="./Scripts/dashbord.js"></script>
+  <script src="./Scripts/expenses.js"></script>
+  <script src="./Scripts/calendar.js"></script>
+  <script src="./Scripts/event.js"></script>
+  <script src="./Scripts/tasks.js"></script>
+  <script src="./Scripts/diary.js"></script>
+  <script src="./Scripts/anim.js"></script>
+  <script type="module" src="./Scripts/ai.js"></script>
+  <script src="./Scripts/goals.js"></script>
+  <script src="./Scripts/change-lang.js"></script>
+</body>
+</html>
+
