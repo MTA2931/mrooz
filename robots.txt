@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://mroooz.ir/sitemap.xml
+Sitemap: https://mta2931.github.io/mrooz/sitemap.xml
