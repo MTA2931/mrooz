@@ -193,6 +193,10 @@ input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(79,124,255,.15)
   grid-template-columns: 1fr 1fr;
 }
 
+#langBtn {
+  display: none !important;
+}
+
 .form.one-col{
   grid-template-columns: 1fr;
 }
