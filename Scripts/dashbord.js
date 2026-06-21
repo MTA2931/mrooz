@@ -206,7 +206,6 @@ function drawExpenseChart(){
   const canvas = document.getElementById("expenseChart");
   if(!canvas) return;
 
-  // برای کیفیت بهتر
   const dpr = window.devicePixelRatio || 1;
   const cssW = canvas.clientWidth || 600;
   const cssH = canvas.clientHeight || 240;
@@ -218,7 +217,6 @@ function drawExpenseChart(){
 
   ctx.clearRect(0,0,cssW,cssH);
 
-  // ✅ کلید درست
   const expenses = JSON.parse(localStorage.getItem("expensesData")||"[]");
 
   const data = getCurrentMonthBuckets(expenses);

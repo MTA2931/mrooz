@@ -64,9 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==========================
-// Subtle 3D Tilt (Selective)
+// Subtle 3D Tilt (Selective) - Fixed
 // ==========================
-const tiltTargets = document.querySelectorAll(".profile-card, .dashboard-box");
+const tiltTargets = document.querySelectorAll(".profile-card");
 
 tiltTargets.forEach(card => {
   card.addEventListener("mousemove", (e) => {
@@ -76,14 +76,17 @@ tiltTargets.forEach(card => {
     const cx = rect.width / 2;
     const cy = rect.height / 2;
 
-    const rx = ((y - cy) / cy) * -4;
-    const ry = ((x - cx) / cx) * 4;
+    const rx = ((y - cy) / cy) * -3.5;
+    const ry = ((x - cx) / cx) * 3.5;
 
     card.style.transform = `translateY(-4px) rotateX(${rx}deg) rotateY(${ry}deg)`;
   });
 
   card.addEventListener("mouseleave", () => {
-    card.style.transform = "";
+    card.style.transform = "translateY(0) rotateX(0deg) rotateY(0deg)";
   });
+
+  card.style.transition = "transform 0.1s ease-out";
+  card.style.transformStyle = "preserve-3d";
 });
 
