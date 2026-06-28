@@ -40,6 +40,9 @@
 </head>
 <body>
   <div class="app">
+    <button class="menu-toggle" id="menuToggle">
+        ☰
+    </button>
     <aside class="sidebar">
       <div class="brand">امروز<span>روز خودت رو مدیریت کن!</span></div>
       <nav class="tabs">
@@ -453,8 +456,8 @@
                 <h4>حذف یادداشت</h4>
                 <p>مطمئنی میخوای این یادداشت حذف بشه؟</p>
                 <div class="confirm-actions">
-                <button class="btn ghost" id="cancelDiaryDelete">انصراف</button>
-                <button class="btn primary" id="confirmDiaryDelete">حذف</button>
+                    <button class="btn ghost" id="cancelDiaryDelete">انصراف</button>
+                    <button class="btn primary" id="confirmDiaryDelete">حذف</button>
                 </div>
             </div>
         </div>
@@ -472,8 +475,8 @@
 
                 <label>مراحل هدف</label>
                 <div class="stage-add">
-                <input id="stageInput" type="text" placeholder="مثلاً دیدن ۱۰ جلسه">
-                <button id="addStageBtn" class="btn primary">افزودن مرحله</button>
+                    <input id="stageInput" type="text" placeholder="مثلاً دیدن ۱۰ جلسه">
+                    <button id="addStageBtn" class="btn primary">افزودن مرحله</button>
                 </div>
 
                 <ul id="stagesList" class="stages-list"></ul>
@@ -509,7 +512,7 @@
             </div>
         </div>
 
-        <!-- Confirm Delete (هم‌سبک سایت) -->
+        <!-- Confirm Delete -->
         <div id="goalDeleteConfirm" class="confirm-box hidden">
             <div class="confirm-content">
                 <h4>حذف هدف</h4>
@@ -604,7 +607,7 @@
                 </ol>
             </div>
 
-        <!-- باکس سوالات متعدد -->
+        <!-- FAQ Box-->
         <div class="faq">
             <h3 class="tb-box">سوالات متداول</h3>
             <p class="muted">پاسخ سوال‌های رایج کاربران</p>
@@ -623,11 +626,6 @@
                 <summary>می‌توانم از چند دستگاه استفاده کنم؟</summary>
                 <p>خیر. این سایت را فقط در یک دستگاه میشه استفاده کرد. چون همه اطلاعات درون مرورگر ذخیره میشه.</p>
             </details>
-
-            <details class="faq-item">
-                <summary>امروز از چه هوش مصنوعی استفاده میکند؟</summary>
-                <p>از هوش مصوعی "گروک". از آخرین نسخه Grok-4 در قسمت هوش مصنوعی استفاده میشود. این هوش مصنوعی توسط xAi ساخته شده است.</p>
-            </details>
         </div>
         </div>
       </section>
@@ -642,6 +640,7 @@
   </div>
 
   <script src="./Scripts/dashbord.js"></script>
+  <script src="./Scripts/mobile-menu.js"></script>
   <script src="./Scripts/expenses.js"></script>
   <script src="./Scripts/calendar.js"></script>
   <script src="./Scripts/event.js"></script>

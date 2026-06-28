@@ -322,6 +322,54 @@ textarea:focus{
   display:block;
 }
 
+.menu-toggle{
+    display:none;
+    position:fixed;
+    top:18px;
+    right:18px;
+    width:48px;
+    height:48px;
+
+    border:none;
+    border-radius:12px;
+
+    background:#1d2546;
+    color:#fff;
+    font-size:26px;
+
+    cursor:pointer;
+    z-index:2000;
+}
+
+@media (max-width:900px){
+
+    .menu-toggle{
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .sidebar{
+        position:fixed;
+        top:0;
+        right:-300px;
+
+        width:260px;
+        height:100vh;
+
+        transition:.35s;
+        z-index:1500;
+    }
+
+    .sidebar.open{
+        right:0;
+    }
+
+    .content{
+        width:100%;
+        margin-right:0;
+    }
+}
 
 
 
